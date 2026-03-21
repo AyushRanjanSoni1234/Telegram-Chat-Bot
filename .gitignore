@@ -8,3 +8,7 @@ wheels/
 .env
 # Virtual environments
 .venv
+
+config.py
+db/
+Data/
