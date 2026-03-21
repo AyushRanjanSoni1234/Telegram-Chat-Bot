@@ -44,7 +44,7 @@ class HFEmbedding:
             return vector.tolist()
 
         except Exception as e:
-            print(f"❌ Embedding error: {e}")
+            print(f"[ERROR] Embedding error: {e}")
             return [0.0] * 384  # fallback
 
     def embed_documents(self, texts):
@@ -67,7 +67,7 @@ def load_docs(folder="Data"):
 
     # ✅ FIX: Check folder exists
     if not os.path.exists(folder):
-        raise ValueError(f"❌ Folder '{folder}' not found")
+        raise ValueError(f"[ERROR] Folder '{folder}' not found")
 
     for file in os.listdir(folder):
         file_path = os.path.join(folder, file)
@@ -104,7 +104,7 @@ def load_docs(folder="Data"):
                     docs.append((file, json.dumps(data)))
 
         except Exception as e:
-            print(f"❌ Error loading {file}: {e}")
+            print(f"[ERROR] Error loading {file}: {e}")
 
     return docs
 
@@ -143,17 +143,17 @@ def create_index():
 
     # ✅ FIX: Check before FAISS
     if len(documents) == 0:
-        raise ValueError("❌ No documents found. Check your Data folder.")
-
-    print(f"✅ Total chunks created: {len(documents)}")  # DEBUG
-
+        raise ValueError("[ERROR] No documents found. Check your Data folder.")
+    
+    print(f"DEBUG: Total chunks created: {len(documents)}")  # DEBUG
+    
     embeddings = HFEmbedding(token=HF_TOKEN)
-
+    
     db = FAISS.from_documents(documents, embeddings)
-
+    
     db.save_local("db")
-
-    print("✅ Index Created Successfully (HuggingFace Embeddings)")
+    
+    print("[OK] Index Created Successfully (HuggingFace Embeddings)")
 
 
 # -------------------------------

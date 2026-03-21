@@ -11,3 +11,7 @@ langchain_openai
 huggingface_hub
 pandas
 langchain-text-splitters
+torch
+easyocr
+transformers
+pillow
